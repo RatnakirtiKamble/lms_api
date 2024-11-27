@@ -46,6 +46,8 @@ def login():
 
 @app.route('/get_subjects', methods=['GET'])
 def get_subjects_route():
+    print('yes')
+    print(subjects)
     return jsonify(subjects), 200
 
 if __name__ == '__main__':
