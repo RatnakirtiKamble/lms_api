@@ -105,7 +105,7 @@ def get_subject_materials(link : str , cookies) -> list[dict]:
         #get the string version of the response to pass to the parser
         response = response.content
 
-        materials_json = PARSE.parse_materials(response)
+        materials_json = parse_materials(response)
 
 
         return materials_json
