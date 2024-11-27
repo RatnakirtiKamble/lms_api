@@ -4,10 +4,20 @@ from utils.core_utils import attempt_login, get_subjects, get_subject_materials
 app = Flask(__name__)
 app.secret_key = 'hriddhi'  # Use a secure key!
 
+@app.route('/')
+def home():
+    return get_subjects(attempt_login("rat.kam.rt22@dypatil.edu", "Ratna@1234"))
+
+cookie = attempt_login("rat.kam.rt22@dypatil.edu", "Ratna@1234")
+subjects = get_subjects(cookie)
+
 @app.route('/materials', methods=['GET'])
 def get_materials():
-    if 'cookie' not in session:
-        return jsonify({"message": "User not logged in"}), 401
+
+    link = request.args.get('link')
+
+    if cookie:
+        return get_subject_materials(link, cookie)
     
     user_cookie = session['cookie']
 
@@ -36,15 +46,7 @@ def login():
 
 @app.route('/get_subjects', methods=['GET'])
 def get_subjects_route():
-    if 'cookie' not in session:
-        return jsonify({"message": "User not logged in"}), 401
-    
-    user_cookie = session['cookie']
-    try:
-        subjects = get_subjects(user_cookie)
-        return jsonify(subjects), 200
-    except Exception as e:
-        return jsonify({"message": str(e)}), 500
+    return jsonify(subjects), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
