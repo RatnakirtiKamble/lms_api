@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return get_subjects(attempt_login("rat.kam.rt22@dypatil.edu", "Ratna@1234"))
+    return "Hello, World!"
 
 
 @app.route('/get_subjects')
