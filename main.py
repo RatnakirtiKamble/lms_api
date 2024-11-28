@@ -1,15 +1,22 @@
-from flask import Flask, session, jsonify, request
-from utils.core_utils import attempt_login, get_subjects, get_subject_materials
+from flask import Flask, session, jsonify, request, send_from_directory, abort
+from utils.core_utils import attempt_login, get_subjects, get_subject_materials, get_download_link
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = 'hriddhi'  # Use a secure key!
 
-@app.route('/')
-def home():
-    return get_subjects(attempt_login("rat.kam.rt22@dypatil.edu", "Ratna@1234"))
+
 
 cookie = attempt_login("rat.kam.rt22@dypatil.edu", "Ratna@1234")
 subjects = get_subjects(cookie)
+
+@app.route('/')
+def home():
+    return get_download_link("https://mydy.dypatil.edu/rait/mod/resource/view.php?id=618663", "resource", cookie)
+
+
+
 
 @app.route('/materials', methods=['GET'])
 def get_materials():
@@ -31,6 +38,16 @@ def get_materials():
         return jsonify(materials), 200
     except Exception as e:
         return jsonify({"message": str(e)}), 500
+    
+@app.route('/get_material', methods=['GET'])
+def get_material():
+    link = request.args.get('link')
+    type = request.args.get('type')
+
+    if cookie:
+        content = get_download_link(link, type, cookie)
+        return content
+    
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -50,5 +67,17 @@ def get_subjects_route():
     print(subjects)
     return jsonify(subjects), 200
 
+@app.route('/download/<filename>')
+def download_file(filename):
+    try:
+        print(f"Attempting to serve file: {filename}")
+        return send_from_directory('static/downloads', filename, as_attachment=True), 200
+    except FileNotFoundError:
+        print(f"File not found: {filename}")
+        return abort(404)
+    except Exception as e:
+        print(f"Error: {e}")
+        return abort(500)
+   
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

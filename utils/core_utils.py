@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 from utils.site_parsing import parse_subjects, parse_attendance, parse_materials, parse_resource_link
+import os
+from werkzeug.utils import secure_filename
+
 
 def attempt_login(username:str, password:str, session = None):
     """
@@ -125,6 +128,10 @@ def get_download_link(link : str, link_type, cookies):
             link: link to the file requested
     """
 
+    DOWNLOAD_FOLDER = 'static/downloads'
+    os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
+
+
     # TODO: Implement a check to determine the kind of link (3-4 types exist I believe)
     with requests.session() as session:
 
@@ -134,7 +141,7 @@ def get_download_link(link : str, link_type, cookies):
 
         #parsing the response to extract the link
 
-        extracted_link = PARSE.parse_resource_link(response.content, link_type)
+        extracted_link = parse_resource_link(response.content, link_type)
 
         content = None
         #Return object
@@ -142,14 +149,25 @@ def get_download_link(link : str, link_type, cookies):
 
             start = extracted_link.rfind('/') + 1 #get the last "/" and ahead of it, is the file name
             name = extracted_link[start:]
-            content = {
-                'name': name,
-                'link': extracted_link
-            }
+            extension = name.split('.')[-1]
 
+            file_name = secure_filename(f"{name}")
 
+            file_path = os.path.join(DOWNLOAD_FOLDER, file_name)
 
-        return content
+            if os.path.exists(file_path):
+                return {'link': f"http://192.168.29.53:5000/download/{file_name}"}
+
+            try:
+                response = session.get(extracted_link)
+                with open(file_path, 'wb') as f:
+                    f.write(response.content)
+
+                return {'link': f"http://192.168.29.53:5000/download/{file_name}"}
+
+            except:
+                return "Error downloading file"
+
 
 
 

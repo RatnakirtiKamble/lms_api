@@ -1,1 +1,1 @@
-user_cookie = session['cookie']
+   return send_from_directory('static/downloads', filename, as_attachment=True), 200
