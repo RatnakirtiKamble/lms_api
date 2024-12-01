@@ -9,8 +9,8 @@ app.secret_key = 'hriddhi'  # Use a secure key!
 
 username = "hri.hal.rt22@dypatil.edu"
 password = "mili#36912"
-cookie = attempt_login(username, password)
-subjects = get_subjects(cookie)
+cookie = ""
+
 
 def refresh_cookie():
     global cookie
@@ -20,10 +20,10 @@ def refresh_cookie():
 @app.route('/')
 def home():
     try: 
-        get_materials()
+        return get_subjects(cookie)
     except:
         refresh_cookie()
-        get_materials()
+        return get_subjects(cookie)
 
 
 
@@ -32,7 +32,9 @@ def home():
 def get_materials():
 
     link = request.args.get('link')
-
+    if cookie == "":
+        refresh_cookie()
+        
     if cookie:
         try:
             return get_subject_materials(link, cookie)
@@ -77,9 +79,17 @@ def login():
 
 @app.route('/get_subjects', methods=['GET'])
 def get_subjects_route():
-    print('yes')
-    print(subjects)
-    return jsonify(subjects), 200
+    try:
+        if cookie == "":
+            refresh_cookie()
+            return jsonify(get_subjects(cookie)), 200
+        else:
+            return jsonify(get_subjects(cookie)), 200
+    except:
+        refresh_cookie()
+        return jsonify(get_subjects(cookie)), 200
+   
+        
 
 @app.route('/download/<filename>')
 def download_file(filename):
