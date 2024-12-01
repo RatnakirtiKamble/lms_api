@@ -7,13 +7,23 @@ CORS(app)
 app.secret_key = 'hriddhi'  # Use a secure key!
 
 
-
-cookie = attempt_login("rat.kam.rt22@dypatil.edu", "Ratna@1234")
+username = "hri.hal.rt22@dypatil.edu"
+password = "mili#36912"
+cookie = attempt_login(username, password)
 subjects = get_subjects(cookie)
+
+def refresh_cookie():
+    global cookie
+    cookie = attempt_login(username, password)
+    print("Cookie refreshed successfully!")
 
 @app.route('/')
 def home():
-    return get_download_link("https://mydy.dypatil.edu/rait/mod/flexpaper/view.php?id=617459", "flexpaper", cookie)
+    try: 
+        get_materials()
+    except:
+        refresh_cookie()
+        get_materials()
 
 
 
@@ -24,7 +34,11 @@ def get_materials():
     link = request.args.get('link')
 
     if cookie:
-        return get_subject_materials(link, cookie)
+        try:
+            return get_subject_materials(link, cookie)
+        except Exception as e:
+            refresh_cookie()
+            return get_subject_materials(link, cookie)
     
     user_cookie = session['cookie']
 
