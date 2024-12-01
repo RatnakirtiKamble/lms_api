@@ -161,7 +161,11 @@ def parse_resource_link(html: str, link_type: str) -> str:
 
         soup = BeautifulSoup(str(presentation_content), 'lxml')
         link_to_content = soup.find("a")
-        link_to_content = link_to_content['href']
+        if link_to_content and 'href' in link_to_content.attrs:
+            link_to_content = link_to_content['href']
+        else:
+            raise ValueError("The expected link element is missing or does not contain 'href'.")
+
 
         # print("FIRST: ",link_to_content) 
         return link_to_content
@@ -170,6 +174,7 @@ def parse_resource_link(html: str, link_type: str) -> str:
     match link_type:
 
         case "flexpaper":
+            print("Flexpaper")
             return flexpaper_parse(soup)
 
         case "resource":

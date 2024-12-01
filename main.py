@@ -13,7 +13,7 @@ subjects = get_subjects(cookie)
 
 @app.route('/')
 def home():
-    return get_download_link("https://mydy.dypatil.edu/rait/mod/resource/view.php?id=618663", "resource", cookie)
+    return get_download_link("https://mydy.dypatil.edu/rait/mod/flexpaper/view.php?id=617459", "flexpaper", cookie)
 
 
 
