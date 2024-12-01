@@ -1,16 +1,22 @@
 from flask import Flask, session, jsonify, request, send_from_directory, abort
 from utils.core_utils import attempt_login, get_subjects, get_subject_materials, get_download_link
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 app.secret_key = 'hriddhi'  # Use a secure key!
 
 
-username = "hri.hal.rt22@dypatil.edu"
-password = "mili#36912"
+username = os.getenv("USERNAME")
+password =  os.getenv("PASSWORD")
 cookie = ""
 
+print(username, password)
 
 def refresh_cookie():
     global cookie
