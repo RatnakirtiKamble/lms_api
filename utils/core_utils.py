@@ -156,14 +156,14 @@ def get_download_link(link : str, link_type, cookies):
             file_path = os.path.join(DOWNLOAD_FOLDER, file_name)
 
             if os.path.exists(file_path):
-                return {'link': f"http://16.16.64.64:5000/download/{file_name}"}
+                return {'link': f"http://192.168.29.53:5000/download/{file_name}"}
 
             try:
                 response = session.get(extracted_link)
                 with open(file_path, 'wb') as f:
                     f.write(response.content)
 
-                return {'link': f"http://16.16.64.64:5000/download/{file_name}"}
+                return {'link': f"http://192.168.29.53:5000/download/{file_name}"}
 
             except:
                 return "Error downloading file"
