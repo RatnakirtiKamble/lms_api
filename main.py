@@ -85,15 +85,8 @@ def login():
 
 @app.route('/get_subjects', methods=['GET'])
 def get_subjects_route():
-    try:
-        if cookie == "":
-            refresh_cookie()
-            return jsonify(get_subjects(cookie)), 200
-        else:
-            return jsonify(get_subjects(cookie)), 200
-    except:
-        refresh_cookie()
-        return jsonify(get_subjects(cookie)), 200
+    refresh_cookie()
+    return jsonify(get_subjects(cookie)), 200
    
         
 
