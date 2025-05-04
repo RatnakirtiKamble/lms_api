@@ -1,0 +1,156 @@
+nohup: ignoring input
+ * Serving Flask app 'main'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.25.134:5000
+[33mPress CTRL+C to quit[0m
+49.36.104.202 - - [30/Nov/2024 03:01:59] "GET / HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:15:54] "GET /get_subjects HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:16:01] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5985 HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:16:13] "GET /get_material?link=https://mydy.dypatil.edu/rait/mod/presentation/view.php?id%3D623990&type=presentation HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:16:13] "GET /download/SE_COMPS_CN_Week1_UNIT_1-Lec1-3.pptx HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:27:06] "GET /get_subjects HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:27:12] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5986 HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:27:15] "GET /get_material?link=https://mydy.dypatil.edu/rait/mod/resource/view.php?id%3D618663&type=resource HTTP/1.1" 200 -
+152.58.45.187 - - [30/Nov/2024 03:27:18] "GET /download/Lect201.pptx HTTP/1.1" 200 -
+49.36.104.202 - - [30/Nov/2024 03:43:20] "GET / HTTP/1.1" 200 -
+49.36.104.202 - - [30/Nov/2024 03:43:28] "GET / HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:06] "GET /get_subjects HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:09] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5991 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:11] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5991 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:15] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5989 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:17] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5989 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:20] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5985 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:22] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5985 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:26] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5986 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:36] "GET /get_subjects HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:38] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5987 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:39] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5987 HTTP/1.1" 200 -
+152.58.48.71 - - [30/Nov/2024 07:10:43] "GET /materials?link=https://mydy.dypatil.edu/rait/course/view.php?id=5986 HTTP/1.1" 200 -
+[2024-11-30 15:33:04,154] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask_cors/extension.py", line 194, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/main.py", line 16, in home
+    return get_download_link("https://mydy.dypatil.edu/rait/mod/resource/view.php?id=618663", "resource", cookie)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/core_utils.py", line 144, in get_download_link
+    extracted_link = parse_resource_link(response.content, link_type)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 176, in parse_resource_link
+    return default_parse(soup)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 164, in default_parse
+    link_to_content = link_to_content['href']
+                      ~~~~~~~~~~~~~~~^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+45.156.128.88 - - [30/Nov/2024 15:33:04] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[2024-11-30 17:57:52,718] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask_cors/extension.py", line 194, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/main.py", line 16, in home
+    return get_download_link("https://mydy.dypatil.edu/rait/mod/resource/view.php?id=618663", "resource", cookie)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/core_utils.py", line 144, in get_download_link
+    extracted_link = parse_resource_link(response.content, link_type)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 176, in parse_resource_link
+    return default_parse(soup)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 164, in default_parse
+    link_to_content = link_to_content['href']
+                      ~~~~~~~~~~~~~~~^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+49.36.104.226 - - [30/Nov/2024 17:57:52] "[35m[1mGET / HTTP/1.1[0m" 500 -
+49.36.104.226 - - [30/Nov/2024 17:57:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2024-11-30 21:46:43,574] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask_cors/extension.py", line 194, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/main.py", line 16, in home
+    return get_download_link("https://mydy.dypatil.edu/rait/mod/resource/view.php?id=618663", "resource", cookie)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/core_utils.py", line 144, in get_download_link
+    extracted_link = parse_resource_link(response.content, link_type)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 176, in parse_resource_link
+    return default_parse(soup)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 164, in default_parse
+    link_to_content = link_to_content['href']
+                      ~~~~~~~~~~~~~~~^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+147.185.132.70 - - [30/Nov/2024 21:46:43] "[35m[1mGET / HTTP/1.0[0m" 500 -
+[2024-11-30 23:15:37,348] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask_cors/extension.py", line 194, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/hrid/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/main.py", line 16, in home
+    return get_download_link("https://mydy.dypatil.edu/rait/mod/resource/view.php?id=618663", "resource", cookie)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/core_utils.py", line 144, in get_download_link
+    extracted_link = parse_resource_link(response.content, link_type)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 176, in parse_resource_link
+    return default_parse(soup)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/lms_api/utils/site_parsing.py", line 164, in default_parse
+    link_to_content = link_to_content['href']
+                      ~~~~~~~~~~~~~~~^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+13.58.97.162 - - [30/Nov/2024 23:15:37] "[35m[1mGET / HTTP/1.1[0m" 500 -

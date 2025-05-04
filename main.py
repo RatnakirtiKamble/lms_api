@@ -25,11 +25,7 @@ def refresh_cookie():
 
 @app.route('/')
 def home():
-    try: 
-        return get_subjects(cookie)
-    except:
-        refresh_cookie()
-        return get_subjects(cookie)
+    return "Hello world", 200
 
 
 
@@ -74,8 +70,6 @@ def get_material():
 @app.route('/login', methods=['POST'])
 def login():
     # Replace these with actual request data (e.g., from a login form)
-    username = "rat.kam.rt22@dypatil.edu"
-    password = "Ratna@1234"
     session_cookie = attempt_login(username, password)
     if session_cookie:
         session['cookie'] = session_cookie  # Store cookie in the session
@@ -85,8 +79,12 @@ def login():
 
 @app.route('/get_subjects', methods=['GET'])
 def get_subjects_route():
-    refresh_cookie()
-    return jsonify(get_subjects(cookie)), 200
+    subjects = get_subjects(cookie)
+    print(subjects)
+    if len(subjects) == 0:
+        refresh_cookie()
+        return jsonify(get_subjects(cookie)), 200
+    return jsonify(subjects), 200
    
         
 
